@@ -1,6 +1,7 @@
 package com.shane51.demo;
 
 import com.shane51.demo.domain.Car;
+import com.shane51.demo.exception.CarNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -24,12 +25,17 @@ public class CarControllerTest {
 
     @Test
     public void shouldReturnCarDetails() throws Exception {
-
         given(carService.getCarDetails(anyString())).willReturn(new Car("prius","hybrid"));
-
         mockMvc.perform(get("/cars/prius"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("name").value("prius"))
                 .andExpect(jsonPath("type").value("hybrid"));
+    }
+
+    @Test
+    public void shouldThrowNotFoundExceptionWhenNoCarFound() throws Exception {
+        given(carService.getCarDetails(anyString())).willThrow(new CarNotFoundException());
+        mockMvc.perform(get("/cars/prius"))
+                .andExpect(status().isNotFound());
     }
 }
