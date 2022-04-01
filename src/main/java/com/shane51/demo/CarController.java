@@ -7,8 +7,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CarController {
+
+    private final CarService carService;
+
+    public CarController(CarService carService) {
+        this.carService = carService;
+    }
+
     @GetMapping("/cars/{name}")
     private Car getCar(@PathVariable String name) {
-        return null;
+        return carService.getCarDetails(name);
     }
 }
