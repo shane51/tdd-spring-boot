@@ -1,6 +1,7 @@
 package com.shane51.demo;
 
 import com.shane51.demo.domain.Car;
+import com.shane51.demo.exception.CarNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -35,5 +37,14 @@ class CarServiceTest {
         Car car = carService.getCarDetails("prius");
         assertThat(car.getName()).isEqualTo("prius");
         assertThat(car.getType()).isEqualTo("hybrid");
+    }
+
+    @Test
+    void shouldThrowException() {
+        given(carRepository.findByName("prius")).willReturn(null);
+        CarNotFoundException ex = assertThrows(
+                CarNotFoundException.class
+                , () -> carService.getCarDetails("prius")
+        );
     }
 }
