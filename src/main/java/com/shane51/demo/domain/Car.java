@@ -20,6 +20,9 @@ public class Car {
         this.type = type;
     }
 
+    public Car() {
+    }
+
     public void setName(String name) {
         this.name = name;
     }
