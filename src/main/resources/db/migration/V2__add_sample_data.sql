@@ -1,0 +1,1 @@
+INSERT INTO car(name, type, create_at)  VALUES ('prius', 'hybrid', current_timestamp);
