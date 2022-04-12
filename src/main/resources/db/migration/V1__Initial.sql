@@ -5,4 +5,4 @@ CREATE TABLE IF NOT EXISTS `car` (
     `type` varchar(20),
     `create_at` timestamp
 
-)ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+) DEFAULT CHARSET=UTF8;
