@@ -43,7 +43,7 @@ class CarServiceTest {
     @Test
     void shouldThrowException() {
         given(carRepository.findByName("prius")).willReturn(null);
-        CarNotFoundException ex = assertThrows(
+        assertThrows(
                 CarNotFoundException.class
                 , () -> carService.getCarDetails("prius")
         );
